@@ -92,7 +92,7 @@ export default function LandingPage() {
           
           <div className="relative w-[70vh] max-w-[800px] aspect-square flex items-center justify-center translate-x-[15%]">
             <img 
-              src="/landing_salad.png" 
+              src="./landing_salad.png" 
               alt="Healthy Salad Bowl" 
               className="w-full h-full object-contain object-right drop-shadow-2xl"
             />
@@ -146,8 +146,8 @@ export default function LandingPage() {
             </div>
             
             {/* Subtle dotted connection lines (SVG background overlay) */}
-            <svg className="absolute inset-0 w-full h-full pointer-events-none -z-10" style={{ opacity: 0.2 }}>
-              <path d="M 20% 25% Q 30% 50% 10% 50% T 20% 80%" stroke="#16a34a" strokeWidth="1.5" strokeDasharray="4 4" fill="none" />
+            <svg className="absolute inset-0 w-full h-full pointer-events-none -z-10" style={{ opacity: 0.2 }} viewBox="0 0 100 100">
+              <path d="M 20 25 Q 30 50 10 50 T 20 80" stroke="#16a34a" strokeWidth="1.5" strokeDasharray="4 4" fill="none" />
             </svg>
 
           </div>

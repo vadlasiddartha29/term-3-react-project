@@ -67,7 +67,7 @@ export default function AuthPage() {
           {/* Bottom left image */}
           <div className="relative w-64 h-64 rounded-full overflow-hidden shadow-2xl mt-auto mb-8 border-4 border-white">
             <img 
-              src="/auth_salad.png" 
+              src="./auth_salad.png" 
               alt="Healthy Bowl" 
               className="w-full h-full object-cover"
             />

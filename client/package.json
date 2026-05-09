@@ -9,7 +9,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "deploy": "cd dist && git init && git config user.email \"vadla@example.com\" && git config user.name \"vadla\" && git checkout -b gh-pages && git add . && git commit -m \"Deploy\" && git push -f https://github.com/vadlasiddartha29/term-3-react-project.git gh-pages"
   },
   "dependencies": {
     "@clerk/clerk-react": "^5.61.6",
