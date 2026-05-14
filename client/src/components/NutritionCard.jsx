@@ -3,19 +3,19 @@ import { useState } from 'react'
 // ── Nutrient row component ────────────────────────────────────────────────────
 function NutrientRow({ label, value, unit, color = 'brand', icon }) {
   const colorMap = {
-    brand: 'bg-brand-500/10 text-brand-400 border-brand-500/20',
-    blue: 'bg-blue-500/10  text-blue-400  border-blue-500/20',
-    orange: 'bg-orange-500/10 text-orange-400 border-orange-500/20',
-    purple: 'bg-purple-500/10 text-purple-400 border-purple-500/20',
-    rose: 'bg-rose-500/10  text-rose-400   border-rose-500/20',
-    amber: 'bg-amber-500/10 text-amber-400  border-amber-500/20',
-    cyan: 'bg-cyan-500/10  text-cyan-400   border-cyan-500/20',
+    brand: 'bg-brand-50 text-brand-700 border-brand-100',
+    blue: 'bg-blue-50  text-blue-700  border-blue-100',
+    orange: 'bg-orange-50 text-orange-700 border-orange-100',
+    purple: 'bg-purple-50 text-purple-700 border-purple-100',
+    rose: 'bg-rose-50  text-rose-700   border-rose-100',
+    amber: 'bg-amber-50 text-amber-700  border-amber-100',
+    cyan: 'bg-cyan-50  text-cyan-700   border-cyan-100',
   }
   return (
     <div className={`flex items-center justify-between px-4 py-3 rounded-xl border ${colorMap[color]} transition-all hover:scale-[1.01]`}>
       <div className="flex items-center gap-2.5">
         <span className="text-base">{icon}</span>
-        <span className="text-sm font-medium text-slate-300">{label}</span>
+        <span className="text-sm font-bold text-slate-700">{label}</span>
       </div>
       <span className="font-bold text-sm">
         {value}
@@ -59,11 +59,11 @@ function CalorieRing({ calories }) {
         </svg>
         {/* Text in center */}
         <div className="absolute inset-0 flex flex-col items-center justify-center">
-          <span className="text-2xl font-black text-white leading-none">{calories.toLocaleString()}</span>
-          <span className="text-xs text-slate-400 font-medium">kcal</span>
+          <span className="text-2xl font-black text-slate-900 leading-none">{calories.toLocaleString()}</span>
+          <span className="text-xs text-slate-500 font-bold uppercase tracking-tight">kcal</span>
         </div>
       </div>
-      <span className="text-slate-400 text-xs mt-1">Calories per serving</span>
+      <span className="text-slate-500 text-xs font-medium mt-2">Calories per serving</span>
     </div>
   )
 }
@@ -89,11 +89,11 @@ export default function NutritionCard({ food, imageUrl, imageAlt, credit }) {
             className={`w-full h-full object-cover transition-opacity duration-500 ${imgLoaded ? 'opacity-100' : 'opacity-0'}`}
           />
           {/* Gradient overlay */}
-          <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(2,6,23,0.9) 0%, transparent 60%)' }} />
+          <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 60%)' }} />
           {/* Food name overlay */}
           <div className="absolute bottom-4 left-5">
-            <h2 className="text-2xl font-black text-white capitalize drop-shadow-lg">{food.name}</h2>
-            {food.brandName && <p className="text-brand-400 text-sm font-medium">{food.brandName}</p>}
+            <h2 className="text-2xl font-black text-white capitalize drop-shadow-md">{food.name}</h2>
+            {food.brandName && <p className="text-brand-300 text-sm font-bold">{food.brandName}</p>}
           </div>
           {/* Unsplash credit */}
           {credit?.photographer && (
@@ -113,24 +113,24 @@ export default function NutritionCard({ food, imageUrl, imageAlt, credit }) {
         {/* No image fallback header */}
         {!displayImage && (
           <div className="flex items-center gap-3 mb-5 pb-5 border-b border-white/5">
-            <div className="w-14 h-14 rounded-2xl bg-brand-500/15 border border-brand-500/20 flex items-center justify-center text-3xl">
+            <div className="w-14 h-14 rounded-2xl bg-brand-50 border border-brand-100 flex items-center justify-center text-3xl shadow-sm">
               🍽️
             </div>
             <div>
-              <h2 className="text-xl font-black text-white capitalize">{food.name}</h2>
-              {food.brandName && <p className="text-brand-400 text-sm">{food.brandName}</p>}
+              <h2 className="text-xl font-black text-slate-900 capitalize">{food.name}</h2>
+              {food.brandName && <p className="text-brand-600 text-sm font-bold">{food.brandName}</p>}
             </div>
           </div>
         )}
 
         {/* Serving info */}
         <div className="flex items-center gap-2 mb-5 flex-wrap">
-          <span className="text-xs text-slate-500">Serving:</span>
-          <span className="px-3 py-1 rounded-full text-xs font-semibold text-brand-400 border border-brand-500/25 bg-brand-500/8">
+          <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Serving:</span>
+          <span className="px-3 py-1 rounded-full text-xs font-bold text-brand-600 border border-brand-100 bg-brand-50 shadow-sm">
             {food.servingQty} {food.servingUnit}
           </span>
           {food.servingWeightGrams && (
-            <span className="px-3 py-1 rounded-full text-xs font-semibold text-slate-400 border border-slate-700/50">
+            <span className="px-3 py-1 rounded-full text-xs font-bold text-slate-500 border border-slate-100 bg-slate-50 shadow-sm">
               ~{food.servingWeightGrams}g
             </span>
           )}
@@ -177,7 +177,7 @@ export default function NutritionCard({ food, imageUrl, imageAlt, credit }) {
               {food.vitamins.iron > 0 && <NutrientRow icon="⚙️" label="Iron" value={food.vitamins.iron} unit="mg" color="rose" />}
             </div>
             {Object.values(food.vitamins).every(v => v === 0) && (
-              <p className="text-slate-500 text-xs text-center py-3">Vitamin data not available for this item</p>
+              <p className="text-slate-400 text-xs text-center py-4 font-medium italic">Vitamin data not available for this item</p>
             )}
           </div>
         )}

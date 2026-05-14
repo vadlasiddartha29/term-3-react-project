@@ -1,12 +1,16 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
-import { SignedIn, SignedOut } from '@clerk/clerk-react'
+import { SignedIn, SignedOut, AuthenticateWithRedirectCallback } from '@clerk/clerk-react'
 import AuthPage from './pages/AuthPage'
 import Dashboard from './pages/Dashboard'
 import LandingPage from './pages/LandingPage'
+import HowItWorks from './pages/HowItWorks'
+import About from './pages/About'
+import Contact from './pages/Contact'
+import ChatBot from './components/ChatBot'
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={import.meta.env.BASE_URL}>
       <Routes>
         {/* Public auth route */}
         <Route
@@ -24,6 +28,11 @@ export default function App() {
           }
         />
 
+        {/* Public routes */}
+        <Route path="/how-it-works" element={<HowItWorks />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+
         {/* Home / Protected dashboard route */}
         <Route
           path="/"
@@ -40,9 +49,15 @@ export default function App() {
           }
         />
 
+        {/* SSO Callback Route */}
+        <Route path="/sso-callback" element={<AuthenticateWithRedirectCallback />} />
+
         {/* Catch-all */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
+      <SignedIn>
+        <ChatBot />
+      </SignedIn>
     </BrowserRouter>
   )
 }

@@ -67,7 +67,7 @@ export default function SearchBar({ onSearch, isLoading }) {
             id={`btn-suggestion-${s.toLowerCase().replace(/\s/g, '-')}`}
             onClick={() => handleSuggestion(s)}
             disabled={isLoading}
-            className="px-3.5 py-1.5 rounded-full text-xs font-medium text-slate-400 border border-slate-700/60 hover:border-brand-500/50 hover:text-brand-400 hover:bg-brand-500/5 transition-all duration-200 disabled:opacity-40"
+            className="px-3.5 py-1.5 rounded-full text-xs font-semibold text-slate-600 border border-slate-200 bg-white hover:border-brand-500/50 hover:text-brand-600 hover:bg-brand-50 transition-all duration-200 disabled:opacity-40 shadow-sm"
           >
             {s}
           </button>

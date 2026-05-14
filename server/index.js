@@ -9,9 +9,13 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // ── Security & Middleware ────────────────────────────────────────────────────
+app.use((req, res, next) => {
+  console.log(`[Request] ${req.method} ${req.url}`);
+  next();
+});
 app.use(helmet());
 app.use(cors({
-  origin: ['http://localhost:5173', 'http://localhost:3000'],
+  origin: '*',
   credentials: true,
 }));
 app.use(express.json());
@@ -36,6 +40,6 @@ app.use((err, _req, res, _next) => {
   res.status(500).json({ error: 'Internal server error', message: err.message });
 });
 
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
   console.log(`✅ Nutrition Finder server running on http://localhost:${PORT}`);
 });

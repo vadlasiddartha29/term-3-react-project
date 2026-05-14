@@ -7,7 +7,7 @@ import NutritionCard from '../components/NutritionCard'
 import LoadingSpinner from '../components/LoadingSpinner'
 import ErrorMessage from '../components/ErrorMessage'
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000'
+const API_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:5000'
 
 // ── Local history helpers ─────────────────────────────────────────────────────
 const HISTORY_KEY = 'nutrition_search_history'
@@ -80,6 +80,11 @@ export default function Dashboard() {
 
       setStatus('success')
     } catch (err) {
+      console.error('[Dashboard Search Error]', {
+        apiUrl: `${API_URL}/api/nutrition`,
+        error: err.message,
+        response: err.response?.data
+      });
       const msg =
         err.response?.data?.error ||
         (err.response?.status === 404
@@ -96,20 +101,20 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-950">
+    <div className="min-h-screen bg-[#f8fafc]">
       <Navbar />
 
       <main className="max-w-4xl mx-auto px-4 sm:px-6 py-10">
 
         {/* ── Hero section ── */}
-        <div className="text-center mb-10 animate-fade-in">
-          <h1 className="text-4xl sm:text-5xl font-black text-white mb-3 leading-tight">
+        <div className="text-center mb-10 animate-fade-in pt-6">
+          <h1 className="text-4xl sm:text-5xl font-black text-slate-900 mb-3 leading-tight">
             What's in your{' '}
             <span style={{ background: 'linear-gradient(90deg, #4ade80, #22c55e)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
               food?
             </span>
           </h1>
-          <p className="text-slate-400 text-lg">
+          <p className="text-slate-500 text-lg font-medium">
             Search any food and get instant, detailed nutritional information.
           </p>
         </div>
@@ -138,7 +143,7 @@ export default function Dashboard() {
                   key={q}
                   id={`btn-history-${q.toLowerCase().replace(/\s/g, '-')}`}
                   onClick={() => handleSearch(q)}
-                  className="px-3.5 py-1.5 rounded-full text-xs font-medium text-slate-300 border border-slate-700/60 hover:border-brand-500/50 hover:text-brand-400 hover:bg-brand-500/5 transition-all duration-200 capitalize"
+                  className="px-3.5 py-1.5 rounded-full text-xs font-semibold text-slate-600 border border-slate-200 bg-white hover:border-brand-500/50 hover:text-brand-600 hover:bg-brand-50 transition-all duration-200 capitalize shadow-sm"
                 >
                   {q}
                 </button>
@@ -163,10 +168,10 @@ export default function Dashboard() {
           <div className="animate-slide-up">
             <div className="flex items-center justify-between mb-5">
               <div>
-                <p className="text-slate-400 text-sm">Results for</p>
-                <h2 className="text-xl font-bold text-white capitalize">"{lastQuery}"</h2>
+                <p className="text-slate-500 text-sm font-medium">Results for</p>
+                <h2 className="text-xl font-bold text-slate-900 capitalize">"{lastQuery}"</h2>
               </div>
-              <span className="px-3 py-1 rounded-full text-xs font-semibold bg-brand-500/15 text-brand-400 border border-brand-500/25">
+              <span className="px-4 py-1.5 rounded-full text-xs font-bold bg-brand-50 text-brand-600 border border-brand-100 shadow-sm">
                 {results.length} item{results.length !== 1 ? 's' : ''} found
               </span>
             </div>
@@ -203,7 +208,7 @@ export default function Dashboard() {
         {status === 'idle' && history.length === 0 && (
           <div className="text-center py-16 animate-fade-in">
             <div className="text-7xl mb-5">🥗</div>
-            <h3 className="text-xl font-bold text-slate-300 mb-2">Start exploring nutrition</h3>
+            <h3 className="text-xl font-bold text-slate-800 mb-2">Start exploring nutrition</h3>
             <p className="text-slate-500 text-sm max-w-sm mx-auto leading-relaxed">
               Type any food above — whole foods, dishes, or brands — and get a complete nutritional breakdown instantly.
             </p>
@@ -216,7 +221,7 @@ export default function Dashboard() {
               ].map(({ icon, label }) => (
                 <div key={label} className="glass-card p-4">
                   <div className="text-2xl mb-2">{icon}</div>
-                  <span className="text-xs text-slate-400 font-medium">{label}</span>
+                  <span className="text-xs text-slate-500 font-bold">{label}</span>
                 </div>
               ))}
             </div>
@@ -225,8 +230,8 @@ export default function Dashboard() {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-white/5 mt-16 py-6 text-center text-slate-600 text-xs">
-        <p>Nutrition data powered by <span className="text-slate-500">Nutritionix</span> · Images by <span className="text-slate-500">Unsplash</span></p>
+      <footer className="border-t border-slate-100 mt-16 py-8 text-center text-slate-500 text-xs">
+        <p>Nutrition data powered by <span className="text-slate-700 font-medium">Nutritionix</span> · Images by <span className="text-slate-700 font-medium">Unsplash</span></p>
       </footer>
     </div>
   )

@@ -4,7 +4,7 @@ const verifyClerk = require('../middleware/verifyClerk');
 
 const router = express.Router();
 
-router.post('/', verifyClerk, async (req, res) => {
+router.post('/', async (req, res) => {
   const { query } = req.body;
 
   if (!query || query.trim().length === 0) {
@@ -29,6 +29,10 @@ router.post('/', verifyClerk, async (req, res) => {
     );
 
     const foods = response.data.foods;
+    console.log(`[USDA API] Found ${foods?.length || 0} results for "${query}"`);
+    if (foods && foods.length > 0) {
+      console.log('[USDA Sample Item]', foods[0].description, foods[0].foodNutrients?.slice(0, 3));
+    }
     if (!foods || foods.length === 0) {
       return res.status(404).json({ error: 'No nutritional data found for this food.' });
     }
@@ -77,8 +81,11 @@ router.post('/', verifyClerk, async (req, res) => {
     if (err.response?.status === 404) {
       return res.status(404).json({ error: 'Food not found. Try a different search term.' });
     }
-    console.error('[Nutrition Route Error]', err.message);
-    res.status(500).json({ error: 'Failed to fetch nutrition data. Please try again.' });
+    console.error('[Nutrition Route Error]', err.response?.data || err.message);
+    res.status(err.response?.status || 500).json({ 
+      error: 'Failed to fetch nutrition data. Please try again.',
+      details: err.response?.data || err.message
+    });
   }
 });
 

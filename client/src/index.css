@@ -19,7 +19,7 @@
 
   body {
     font-family: 'Inter', system-ui, sans-serif;
-    @apply bg-slate-950 text-slate-100 antialiased;
+    @apply bg-[#f8fafc] text-slate-900 antialiased;
     min-height: 100vh;
   }
 
@@ -28,7 +28,7 @@
   }
 
   ::-webkit-scrollbar-track {
-    @apply bg-slate-900;
+    @apply bg-slate-50;
   }
 
   ::-webkit-scrollbar-thumb {
@@ -44,11 +44,11 @@
     background: radial-gradient(ellipse at top left, #052e16 0%, #0f172a 40%, #020617 100%);
   }
 
-  /* Glassmorphism card */
+  /* Glassmorphism card - Light Theme Optimized */
   .glass-card {
-    @apply rounded-2xl border border-white/10 backdrop-blur-sm;
-    background: rgba(255, 255, 255, 0.04);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    @apply rounded-2xl border border-slate-100 backdrop-blur-sm;
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.8);
   }
 
   /* Nutrition value badge */
@@ -74,7 +74,7 @@
 
   /* Search input */
   .search-input {
-    @apply w-full bg-slate-800/60 border border-slate-700/60 rounded-2xl px-6 py-4 text-white placeholder-slate-400 text-lg outline-none transition-all duration-200;
+    @apply w-full bg-white border border-slate-200 rounded-2xl px-6 py-4 text-slate-900 placeholder-slate-400 text-lg outline-none transition-all duration-200 shadow-sm;
   }
 
   .search-input:focus {
@@ -83,7 +83,7 @@
 
   /* Section label */
   .section-label {
-    @apply text-xs font-semibold uppercase tracking-widest text-slate-400 mb-1;
+    @apply text-xs font-bold uppercase tracking-widest text-slate-500 mb-1;
   }
 
   /* Calorie ring glow */
@@ -111,7 +111,7 @@
 
 /* Auth page light wrapper */
 .auth-page-light {
-  @apply min-h-screen bg-[#f8fafc] flex relative overflow-hidden;
+  @apply h-screen bg-[#f8fafc] flex relative overflow-hidden;
 }
 
 /* Floating animation */
@@ -141,11 +141,19 @@
 
 
 /* Clerk overrides — Light theme */
-.cl-card {
-  background: #ffffff !important;
-  border: 1px solid #f1f5f9 !important;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.06) !important;
-  border-radius: 1.5rem !important;
+.cl-rootBox,
+.cl-card,
+.cl-main,
+div[class*="cl-card"],
+div[class*="cl-rootBox"],
+div[class*="cl-main"] {
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  width: 100% !important;
+  padding: 0 !important;
+  margin: 0 !important;
 }
 
 .cl-headerTitle {
@@ -162,17 +170,21 @@
   font-weight: 500 !important;
 }
 
-.cl-formFieldInput {
+.cl-formFieldInput,
+input[class*="cl-formFieldInput"] {
+  background-color: #ffffff !important;
   background: #ffffff !important;
-  border: 1px solid #cbd5e1 !important;
+  border: 1px solid #e2e8f0 !important;
   color: #0f172a !important;
   border-radius: 0.75rem !important;
-  padding: 0.6rem 1rem !important;
+  padding: 0.75rem 1rem 0.75rem 2.75rem !important;
+  font-size: 0.875rem !important;
+  transition: all 0.2s ease !important;
 }
 
 .cl-formFieldInput:focus {
   border-color: #16a34a !important;
-  box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.15) !important;
+  box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.1) !important;
 }
 
 .cl-formButtonPrimary {
@@ -205,10 +217,71 @@
   background: #f8fafc !important;
 }
 
+/* Remove internal padding from the main content to avoid double spacing */
+.cl-internal-1dauvqw, 
+.cl-internal-180962v {
+  padding: 0 !important;
+}
+
+.cl-dividerRow {
+  margin-top: 1.5rem !important;
+  margin-bottom: 1.5rem !important;
+}
+
 .cl-dividerLine {
-  background: #e2e8f0 !important;
+  background: #f1f5f9 !important;
+  height: 1px !important;
 }
 
 .cl-dividerText {
   color: #94a3b8 !important;
+  font-size: 0.75rem !important;
+  text-transform: lowercase !important;
+  font-weight: 500 !important;
+}
+
+
+/* Custom icons for Clerk inputs */
+.cl-formFieldInput,
+input[class*="cl-formFieldInput"] {
+  background-repeat: no-repeat !important;
+  background-position: 12px center !important;
+  background-size: 18px !important;
+}
+
+.cl-formFieldInput[type="text"], 
+.cl-formFieldInput[type="email"], 
+.cl-formFieldInput[name="identifier"],
+.cl-formFieldInput[name="emailAddress"],
+.cl-formFieldInput[name="username"] {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect width='20' height='16' x='2' y='4' rx='2'/%3E%3Cpath d='m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7'/%3E%3C/svg%3E") !important;
+}
+
+.cl-formFieldInput[type="password"] {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect width='18' height='11' x='3' y='11' rx='2' ry='2'/%3E%3Cpath d='M7 11V7a5 5 0 0 1 10 0v4'/%3E%3C/svg%3E") !important;
+}
+
+.cl-formButtonPrimary::after {
+  content: ' →';
+  margin-left: 6px;
+  font-size: 1.1em;
+}
+
+/* Custom scrollbar for the auth card */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+/* Custom scrollbar for the auth card */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #e2e8f0;
+  border-radius: 10px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #cbd5e1;
 }
